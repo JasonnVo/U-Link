@@ -1,9 +1,9 @@
 .navbar {
     display: flex;
-    justify-content: center; 
+    justify-content: right; 
     align-items: center;
     background: rgba(0, 0, 0, 0.2); 
-    padding: 10px 0;
+    padding: 20px 0;
     width: 100%;
     position: fixed;
     top: 0;
@@ -14,12 +14,12 @@
     display: flex;
     gap: 20px;
     list-style: none;
-    padding: 0;
+    padding-right: 100px;
     margin: 0;
   }
   
   .navbar a {
-    color: #b5a3ff;
+    color: #657fcf;
     text-decoration: none;
     font-weight: bold;
   }
