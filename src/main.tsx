@@ -5,8 +5,6 @@ import CountButton from './Components/CountButton'
 import HeaderContainer from './Components/HeaderContainer'
 
 
-
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HeaderContainer /> 
