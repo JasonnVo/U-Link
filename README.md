@@ -3,10 +3,10 @@ Team Name: Team-3
 Tagline: Ride For Environment!
 
 ## Team Memebers:
-Dongpei Zhang (DongpeiZ)
-Jason Vo (JasonnVo)
-Sean McGonigle (Ian139)
-Ian Rapko (seanmcgon)
+Dongpei Zhang (DongpeiZ), 
+Jason Vo (JasonnVo), 
+Sean McGonigle (seanmcgon), 
+Ian Rapko (Ian139)
 
 # Overview:
 ## The Problem:
@@ -23,4 +23,4 @@ not only a transportation app but also a social networking app for students.
 U-Link is tailored specifically for students who rely on public transit and are looking for a more connected 
 and seamless commuting experience.
 
-## Place Holder for future Setup Instructions ...
+## Place Holder for future Setup Instructions
