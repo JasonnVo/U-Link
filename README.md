@@ -3,10 +3,10 @@ Team Name: Team-3
 Tagline: Ride For Environment!
 
 ## Team Memebers:
-Dongpei Zhang (DongpeiZ)
-Jason Vo (JasonnVo)
-Sean McGonigle (Ian139)
-Ian Rapko (seanmcgon)
+Dongpei Zhang (DongpeiZ), 
+Jason Vo (JasonnVo), 
+Sean McGonigle (seanmcgon), 
+Ian Rapko (Ian139)
 
 # Overview:
 ## The Problem:
