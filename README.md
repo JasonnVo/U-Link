@@ -24,3 +24,5 @@ U-Link is tailored specifically for students who rely on public transit and are 
 and seamless commuting experience.
 
 ## Place Holder for future Setup Instructions
+To run the application, clone the repo and then run ```npm install``` to install the required dependencys. 
+Once that is completed, run ```npm run dev``` to run a development environment. 
