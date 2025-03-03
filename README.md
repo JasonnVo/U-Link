@@ -25,3 +25,4 @@ and seamless commuting experience.
 
 ## Setup Instructions
 To run the application, clone the repo and then run ```npm install``` to install the required dependencys. Once that is completed, run ```npm run dev``` to run a development environment. 
+
