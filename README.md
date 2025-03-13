@@ -23,6 +23,6 @@ not only a transportation app but also a social networking app for students.
 U-Link is tailored specifically for students who rely on public transit and are looking for a more connected 
 and seamless commuting experience.
 
-## Place Holder for future Setup Instructions
+## Setup Instructions
 To run the application, clone the repo and then run ```npm install``` to install the required dependencys. 
 Once that is completed, run ```npm run dev``` to run a development environment. 
