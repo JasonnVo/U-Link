@@ -1,12 +1,8 @@
-import './Profile.css'
-
 function Profile() {
     return (
-        <>
-            <div className="profile">
-                <h1>Profile Page</h1>
-            </div>
-        </>
+        <div className="my-20 flex justify-center items-center">
+            <h1>Profile Page</h1>
+        </div>
     );    
 }
 
