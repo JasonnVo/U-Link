@@ -1,9 +1,9 @@
 
 const Map = () => {
   return (
-    <div> 
-        <h1>Map Page</h1>
-        <h2> placeholder for map component </h2>
+    <div className="flex flex-col ustify-center items-center"> 
+        <h1 className="my-20 font-bold"> Map Page</h1>
+        <h2 className=" font-semibold "> placeholder for map component </h2>
     </div>
   )
 }

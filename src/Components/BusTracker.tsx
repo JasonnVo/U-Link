@@ -1,8 +1,8 @@
-
-
 const BusTracker = () => {
   return (
-    <h2>Live MBTA Bus Tracker</h2>
+    <div className="my-20 flex justify-center items-center">
+      <h2 className="font-bold">Live MBTA Bus Tracker</h2>
+    </div>
   )
 }
 
