@@ -23,6 +23,7 @@ createRoot(document.getElementById("root")!).render(
 					<Route path="/login" element={<Login />} />
 					<Route path="/profile" element={<Profile />} />
 					<Route path="/info" element={<BusRoutesList />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
 				</Routes>
 				<BusTracker />
 			</Router>
