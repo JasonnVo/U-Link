@@ -10,7 +10,7 @@ import Map from "./Components/Map";
 import Login from "./Components/Login";
 import Profile from "./Components/Profile";
 import Leaderboard from "./Components/Leaderboard";
-import BusRoutesList from "./BusRoutesList";
+import BusRoutesList from "./Components/BusRoutesList";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
@@ -23,6 +23,7 @@ createRoot(document.getElementById("root")!).render(
 					<Route path="/login" element={<Login />} />
 					<Route path="/profile" element={<Profile />} />
 					<Route path="/info" element={<BusRoutesList />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
 				</Routes>
 				<BusTracker />
 			</Router>
