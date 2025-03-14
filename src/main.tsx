@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './main.css';
+import { Leaderboard } from './Components/Leaderboard';
 // component imports
 import HeaderContainer from './Components/HeaderContainer';
 import BusTracker from './Components/BusTracker';
