@@ -9,6 +9,7 @@ import NavBar from './Components/NavBar';
 import Map from './Components/Map'; 
 import Login from './Components/Login';
 import Profile from './Components/Profile';
+import BusRoutesList from './BusRoutesList';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/map" element={<Map/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/profile" element={<Profile/>} />
+          <Route path="/info" element={<BusRoutesList/>} />
         </Routes>
         <BusTracker />
       </Router>
