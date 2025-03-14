@@ -1,5 +1,5 @@
-import greendot from "./assets/greendot.png";
-import alert from "./assets/alert.webp";
+import greendot from "../assets/greendot.png";
+import alert from "../assets/alert.webp"
 
 // Mock bus routes data
 type Route = {

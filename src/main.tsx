@@ -10,7 +10,7 @@ import Map from "./Components/Map";
 import Login from "./Components/Login";
 import Profile from "./Components/Profile";
 import Leaderboard from "./Components/Leaderboard";
-import BusRoutesList from "./BusRoutesList";
+import BusRoutesList from "./Components/BusRoutesList";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
