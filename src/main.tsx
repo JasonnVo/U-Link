@@ -8,19 +8,19 @@ import NavBar from "./Components/NavBar";
 import Map from "./Components/Map";
 import Login from "./Components/Login";
 import Profile from "./Components/Profile";
-import Leaderboard from "./Components/Leaderboard";
+import LeaderboardPage from "./pages/LeaderboardPage";
 import BusRoutesList from "./Components/BusRoutesList";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<Router>
 			<div>
-				<video 
-					autoPlay 
-					loop 
-					muted 
+				<video
+					autoPlay
+					loop
+					muted
 					className="absolute inset-0 w-full h-full object-cover"
-					>
+				>
 					<source src="/background.mp4" type="video/mp4" />
 				</video>
 				<div className="absolute inset-0 bg-black/40"></div>
@@ -32,7 +32,7 @@ createRoot(document.getElementById("root")!).render(
 						<Route path="/login" element={<Login />} />
 						<Route path="/profile" element={<Profile />} />
 						<Route path="/info" element={<BusRoutesList />} />
-						<Route path="/leaderboard" element={<Leaderboard />} />
+						<Route path="/leaderboard" element={<LeaderboardPage />} />
 					</Routes>
 				</div>
 			</div>
