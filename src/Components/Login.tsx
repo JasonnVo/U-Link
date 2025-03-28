@@ -1,14 +1,36 @@
+import { useState } from "react";
+
 function Login() {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleLogin = () =>{
+        console.log("Logging in with:", { username, password })
+    };
+
     return (
-        <div className="flex h-screen w-full items-center justify-center">
-            <div className="flex flex-col items-center text-center p-5 border border-gray-300 rounded-lg shadow-lg bg-gray-700 w-1/5 h-3/5">
+        <div className="flex h-screen w-full items-center justify-center bg-opacity-0">
+            <div className="flex flex-col items-center text-center p-5 border border-gray-300 rounded-lg shadow-lg w-1/5 h-auto space-y-6 backdrop-blur-md bg-white/10">
                 <h1 className="text-white text-2xl font-bold">Login</h1>
-                <p className="text-white mt-4">Username</p>
-                <input className="w-4/5 p-2 mt-1 border border-gray-300 rounded-md" />
-                <p className="text-white mt-4">Password</p>
-                <input className="w-4/5 p-2 mt-1 border border-gray-300 rounded-md" />
-                <button className="w-2/5 p-2 mt-8 bg-blue-500 text-white rounded-md hover:bg-blue-700">Log In</button>
-                <button className="w-2/5 p-2 mt-4 bg-blue-500 text-white rounded-md hover:bg-blue-700">Login with Google</button>
+                <input 
+                    className="w-4/5 p-2 border border-gray-300 rounded-md" 
+                    placeholder="Username" 
+                    value={username} 
+                    onChange={(e) => setUsername(e.target.value)} 
+                />
+                <input 
+                    className="w-4/5 p-2 border border-gray-300 rounded-md" 
+                    placeholder="Password" 
+                    type="password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                />
+                <button onClick={handleLogin} className="w-2/5 p-2 bg-gray-600 text-white rounded-md hover:bg-gray-800">
+                    Log In
+                </button>
+                <button className="w-2/5 p-2 bg-red-500 text-white rounded-md hover:bg-red-700">
+                    Login with Google
+                </button>
             </div>
         </div>
     );
