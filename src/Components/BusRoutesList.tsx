@@ -1,5 +1,6 @@
 import greendot from "../assets/greendot.png";
 import alert from "../assets/alert.webp";
+import { Link } from "react-router-dom";
 
 // Mock bus routes data
 type Route = {
@@ -57,38 +58,42 @@ export default function BusRoutesList() {
   return (
     <div className="flex flex-col items-center mt-15">
       <h2 className="text-4xl font-bold mb-2">Routes</h2>
-      <div className=" backdrop-blur-md bg-white/10 shadow-2xl rounded-lg overflow-hidden min-w-1/2">
+      <div className="backdrop-blur-md bg-white/10 shadow-2xl rounded-lg overflow-hidden min-w-1/2">
         <ol className="list-none p-0 text-white/80 overflow-y-auto max-h-[calc(100vh-200px)]">
           {routes.map((route) => {
             return (
-              <li
-                key={route.id}
-                onClick={() => {}}
-                className="flex justify-between items-center border-b border-white/10  cursor-pointer hover:bg-white/5 transition-colors duration-150 p-3"
+              <Link
+                to={`/route/${route.id}`}
+                className="block border-b border-white/10 cursor-pointer hover:bg-white/5 transition-colors duration-150 p-3"
               >
-                <div>
-                  <h1 className="text-xl font-semibold">{route.id}</h1>
-                  <p className="text-sm">{route.name}</p>
-                </div>
-                {route.status === "Normal" ? (
-                  <img
-                    src={greendot}
-                    alt="Green status"
-                    className="w-4 h-4"
-                  ></img>
-                ) : (
-                  <div className="flex flex-col items-center">
-                    <img
-                      src={alert}
-                      alt="Alert symbol"
-                      className="w-4 h-4 mb-1"
-                    ></img>
-                    <p className="text-xs font-bold text-yellow-500">
-                      {route.status}
-                    </p>
+                <li className="flex justify-between items-center">
+                  {/* Route ID & Name */}
+                  <div>
+                    <h1 className="text-xl font-semibold">{route.id}</h1>
+                    <p className="text-sm">{route.name}</p>
                   </div>
-                )}
-              </li>
+
+                  {/* Status Indicator */}
+                  {route.status === "Normal" ? (
+                    <img
+                      src={greendot}
+                      alt="Green status"
+                      className="w-4 h-4"
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center">
+                      <img
+                        src={alert}
+                        alt="Alert symbol"
+                        className="w-4 h-4 mb-1"
+                      />
+                      <p className="text-xs font-bold text-yellow-500">
+                        {route.status}
+                      </p>
+                    </div>
+                  )}
+                </li>
+              </Link>
             );
           })}
         </ol>
