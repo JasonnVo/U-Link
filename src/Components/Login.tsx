@@ -8,6 +8,10 @@ function Login() {
         console.log("Logging in with:", { username, password })
     };
 
+    const handleSignup = () => {
+        
+    }
+
     return (
         <div className="flex h-screen w-full items-center justify-center bg-opacity-0">
             <div className="flex flex-col items-center text-center p-5 border border-gray-300 rounded-lg shadow-lg w-1/5 h-auto space-y-6 backdrop-blur-md bg-white/10">
@@ -28,8 +32,11 @@ function Login() {
                 <button onClick={handleLogin} className="w-2/5 p-2 bg-gray-600 text-white rounded-md hover:bg-gray-800">
                     Log In
                 </button>
-                <button className="w-2/5 p-2 bg-red-500 text-white rounded-md hover:bg-red-700">
-                    Login with Google
+                <button onClick={handleSignup} className="w-2/5 p-2 text-white rounded-md underline hover:text-blue-500">
+                    Sign Up
+                </button>
+                <button className="w-3/5 p-2 bg-red-500 text-white rounded-md hover:bg-red-700">
+                    Signin with Google
                 </button>
             </div>
         </div>
