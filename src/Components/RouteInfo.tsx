@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { SetStateAction, useState } from "react";
 
 // Mock data for now
 const stops = [
@@ -14,18 +15,41 @@ const stops = [
 const name =
   "Mattapan Station - Forest Hills Station via Cummins Highway and Roslindale Square";
 const status = "Active";
-const avgRating = 3.5;
-const comments = [
+const mockAvgRating = 3.5;
+const mockNumRatings = 10;
+const mockComments = [
   "Clean buses, friendly drivers",
   "Has been late multiple times this week",
   "No issues!",
 ];
 
 export default function RouteInfo() {
+  const [comments, setComments] = useState(mockComments);
+  const [avgRating, setAvgRating] = useState(mockAvgRating);
+  const [numRatings, setNumRatings] = useState(mockNumRatings);
+  const [curComment, setCurComment] = useState("");
   const { id } = useParams();
 
+  const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
+    setCurComment(e.target.value);
+  };
+
+  function submitComment(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    if (curComment === "") return;
+    setComments((current) => [String(curComment)].concat(current));
+    setCurComment("");
+  }
+
+  function handleRatingSubmit(rating: number) {
+    setAvgRating(
+      (cur) => (cur * numRatings) / (numRatings + 1) + rating / (numRatings + 1)
+    );
+    setNumRatings((cur) => cur + 1);
+  }
+
   return (
-    <div className="backdrop-blur-md bg-white/10 shadow-2xl rounded-lg overflow-y-auto min-w-1/2 m-6 mt-16 p-6 h-[calc(100vh-160px)]">
+    <div className="backdrop-blur-md bg-white/10 shadow-2xl rounded-lg overflow-y-auto min-w-1/2 m-6 mt-16 mb-0 p-6 pb-2 h-[calc(100vh-100px)]">
       {/* Top Section: ID, Name, Status */}
       <div className="text-center mb-4">
         <h1 className="text-3xl font-bold">{`Route ${id}`}</h1>
@@ -34,9 +58,28 @@ export default function RouteInfo() {
       </div>
 
       {/* Rating Section */}
-      <div className="flex flex-col items-center mb-6">
-        <h2 className="text-xl font-semibold">{`${avgRating}/5`}</h2>
+      <div className="flex items-center space-x-4 justify-center mb-6">
+        <h2 className="text-2xl font-bold">{`${+avgRating.toFixed(1)}/5`}</h2>
         <StarRating rating={avgRating} />
+
+        {/* User rating input */}
+        <div className="flex items-center space-x-2">
+          <label htmlFor="user-rating" className="text-sm">
+            Your Rating:
+          </label>
+          <select
+            id="user-rating"
+            className="border rounded px-2 py-1 bg-white/40 border-gray-300 text-white"
+            onChange={(e) => handleRatingSubmit(Number(e.target.value))}
+          >
+            <option value="" disabled selected>Rate</option>
+            {[1, 2, 3, 4, 5].map((num) => (
+              <option key={num} value={num} className="bg-gray-500">
+                {num}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {/* Lists Section (Stops & Comments) */}
@@ -66,6 +109,33 @@ export default function RouteInfo() {
               </li>
             ))}
           </ul>
+          <form onSubmit={submitComment}>
+            <div className="flex w-full mt-2">
+              <input
+                name="comment"
+                placeholder="Add a comment"
+                maxLength={300}
+                onChange={handleChange}
+                value={curComment}
+                autoComplete="off"
+                className="border-gray-300 border rounded-md p-2 flex-1"
+              />
+
+              <button
+                type="submit"
+                className="bg-white/40 border-gray-300 border rounded-md p-2 ml-2 hover:bg-white/20"
+              >
+                Post
+              </button>
+            </div>
+            <div
+              className={`text-xs ${
+                curComment.length >= 290 ? "text-red-500" : "text-gray-400"
+              }`}
+            >
+              {curComment.length} / 300
+            </div>
+          </form>
         </div>
       </div>
     </div>
