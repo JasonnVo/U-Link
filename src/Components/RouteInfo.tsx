@@ -17,10 +17,10 @@ const name =
 const status = "Active";
 const mockAvgRating = 3.5;
 const mockNumRatings = 10;
-const mockComments = [
-  "Clean buses, friendly drivers",
-  "Has been late multiple times this week",
-  "No issues!",
+const mockComments: {user: string, comment: string}[] = [
+  {user: "Bob21", comment: "Clean buses, friendly drivers"},
+  {user: "Lisa_G17", comment: "Has been late multiple times this week"},
+  {user: "BusLuvr<3", comment: "No issues!"},
 ];
 
 export default function RouteInfo() {
@@ -28,7 +28,7 @@ export default function RouteInfo() {
   const [avgRating, setAvgRating] = useState(mockAvgRating);
   const [numRatings, setNumRatings] = useState(mockNumRatings);
   const [curComment, setCurComment] = useState("");
-  const { id } = useParams();
+  const { id } = useParams(); // Route ID
 
   const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
     setCurComment(e.target.value);
@@ -37,13 +37,14 @@ export default function RouteInfo() {
   function submitComment(e: { preventDefault: () => void }) {
     e.preventDefault();
     if (curComment === "") return;
-    setComments((current) => [String(curComment)].concat(current));
+    const mockUser = "MockUser"; // Temporary
+    setComments((current) => [{user: mockUser, comment: String(curComment)}].concat(current));
     setCurComment("");
   }
 
   function handleRatingSubmit(rating: number) {
     setAvgRating(
-      (cur) => (cur * numRatings) / (numRatings + 1) + rating / (numRatings + 1)
+      (cur) => (cur * numRatings / (numRatings + 1)) + (rating / (numRatings + 1))
     );
     setNumRatings((cur) => cur + 1);
   }
@@ -58,7 +59,7 @@ export default function RouteInfo() {
       </div>
 
       {/* Rating Section */}
-      <div className="flex items-center space-x-4 justify-center mb-6">
+      <div className="flex flex-col md:flex-row items-center space-x-4 justify-center mb-6">
         <h2 className="text-2xl font-bold">{`${+avgRating.toFixed(1)}/5`}</h2>
         <StarRating rating={avgRating} />
 
@@ -105,7 +106,8 @@ export default function RouteInfo() {
           <ul className="space-y-2 bg-white/15 rounded-lg p-2 overflow-y-auto max-h-60">
             {comments.map((comment, index) => (
               <li key={index} className="border-b pb-2 border-white/10">
-                {comment}
+                <p className="text-sm text-white/80">{comment.user}</p>
+                <p className="w-full break-words">{comment.comment}</p>
               </li>
             ))}
           </ul>
