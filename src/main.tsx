@@ -10,6 +10,7 @@ import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import InfoPage from "./pages/InfoPage";
 import LeaderboardPage from "./pages/LeaderboardPage";
+import RoutePage from "./pages/RoutePage";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
@@ -33,6 +34,7 @@ createRoot(document.getElementById("root")!).render(
 						<Route path="/profile" element={<ProfilePage />} />
 						<Route path="/info" element={<InfoPage />} />
 						<Route path="/leaderboard" element={<LeaderboardPage />} />
+						<Route path="/route/:id" element={<RoutePage />} />
 					</Routes>
 				</div>
 			</div>
