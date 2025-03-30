@@ -8,6 +8,9 @@ Jason Vo (JasonnVo),
 Sean McGonigle (seanmcgon), 
 Ian Rapko (Ian139)
 
+# Styling Guideline Document:
+https://docs.google.com/document/d/1f6OhI6_BlD_Yc7HHSYqBq1P8r13cYoAN14J18T1G81Y/edit?usp=sharing
+
 # Overview:
 ## The Problem:
 Many people drive cars to school or work and that generates a staggering 20% of greenhouse gas emissions.

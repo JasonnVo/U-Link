@@ -13,7 +13,7 @@ function Login() {
     }
 
     return (
-        <div className="flex h-screen w-full items-center justify-center bg-opacity-0">
+        <div className="flex flex-col h-screen w-full items-center justify-center bg-opacity-0 mt-[-350px]">
             <div className="flex flex-col items-center text-center p-5 border border-gray-300 rounded-lg shadow-lg w-1/5 h-auto space-y-6 backdrop-blur-md bg-white/10">
                 <h1 className="text-white text-2xl font-bold">Login</h1>
                 <input 
