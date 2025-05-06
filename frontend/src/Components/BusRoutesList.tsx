@@ -1,5 +1,6 @@
 import greendot from "../assets/greendot.png";
 import alert from "../assets/alert.webp"
+import React, { useState, useEffect } from "react";
 
 // Mock bus routes data
 type Route = {
