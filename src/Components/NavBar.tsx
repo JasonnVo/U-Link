@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
 
 const NavBar = () => {
     return (
         <nav className="fixed top-0 left-0 flex w-full items-center justify-end bg-black/20 py-7">
             <div className="absolute left-8">
                 <DirectionsBusIcon className="h-8 w-8 text-white" />
+                <LocalMallIcon />
             </div>
             <ul className="absolute right-8 flex gap-5 list-none m-0">
                 <li><Link to="/" className="font-bold text-white hover:underline">Home</Link></li>

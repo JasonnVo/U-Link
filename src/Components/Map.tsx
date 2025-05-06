@@ -48,6 +48,16 @@ const Map = () => {
         const data = await response.json();
         console.log("Fetched buses:", data.data);
         setBuses(data.data);
+
+
+        // posting data into postgres database 
+        await fetch('http://localhost:4000/vehicles', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data.data),
+        });
+
+
       } catch (error) {
         console.error("Error fetching bus data:", error);
       }
