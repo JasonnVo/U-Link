@@ -55,12 +55,12 @@
 
 ```mermaid
 graph LR;
-    User[User] --> FrontendClient["Frontend (React UI)"];
-    FrontendClient -->|REST API Calls (HTTP)| BackendLeaderboard["Backend Leaderboard Service (Node.js + Express)"];
-    BackendLeaderboard -->|SQL Operations (TypeORM)| Database["Database (PostgreSQL)"];
-    BackendLeaderboard -->|Cache Operations| CacheStore["Cache (Redis)"];
+    User[User] --> FrontendClient["Frontend (React UI)"]
+    FrontendClient -- "REST API Calls (HTTP)" --> BackendLeaderboard["Backend Leaderboard Service (Node.js + Express)"]
+    BackendLeaderboard -- "SQL Operations (TypeORM)" --> Database["Database (PostgreSQL)"]
+    BackendLeaderboard -- "Cache Operations" --> CacheStore["Cache (Redis)"]
 
-    subgraph "Containerized Environment (Docker)"
+    subgraph Docker["Containerized Environment (Docker)"]
         direction LR
         FrontendClient
         BackendLeaderboard
