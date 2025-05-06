@@ -1,69 +1,72 @@
 # COMPSCI 426 SCALABLE WEB SYSTEMS
+
 ## SPRING 2025
+
 ## FINAL PROJECT SUBMISSION
 
 ---
 
 # Information
 
-- Name: <TODO: Your name as it appears exactly in Canvas>
-- Email: <TODO: Your UMass email address>
-- Spire ID: <TODO: Your spire id>
-- GitHub User ID: <TODO: Your GitHub User ID>
-- Graduation Semester: <TODO: Graduation semester, e.g., Spring 2025>
+- Name: Ian Rapko
+- Email: irapko@umass.edu
+- Spire ID: 34235900
+- GitHub User ID: 93850661
+- Graduation Semester: Spring 2026
 
 ---
 
 # Overview
 
 **Team Number:**
-- <TODO: The team number you were assigned at the start of the semester.>
+
+- 3
 
 **System Name:**
-- <TODO: Provide the name of the system you worked on.>
+
+- U-link
 
 **Project Description:**
-- <TODO: Describe the system in a brief paragraph (less than 200 words). 
-  What problem does it solve? Who is the target audience?>
+
+- The goal for the app is to create a platform similar to transit that tracks busses in the region, in addition to combining a social media feature to communicate on bus status as well as have a way to 'rank' how far a student has traveled. The app would end up having real-time data for bus time estimates, as well as real time chat for each seperate bus line, with messages being linked to an account for talking.
 
 ---
 
 # Architecture Overview
 
 **Primary Architecture Components:**
-- <TODO: List and briefly describe the main components of your system 
-  (e.g., front-end, back-end, database, etc.).>
+
+- **Frontend (React):** Provides the user interface for the application, including displaying the leaderboard. It communicates with the backend to fetch necessary data.
+- **Backend (Node.js + Express):** Currently, this consists of a `leaderboard-service` microservice. It handles API requests related to the leaderboard, processes data, and interacts with the database and cache.
+- **Database (PostgreSQL):** Stores persistent data for the leaderboard, such as student information, ride counts, and points. TypeORM is used as the Object-Relational Mapper.
+- **Caching (Redis):** Employed by the `leaderboard-service` to cache frequently accessed leaderboard data, enhancing response times and reducing database load.
+- **Containerization (Docker):** Both the frontend and the `leaderboard-service` are containerized using Docker, facilitating consistent deployment environments and scalability.
 
 **Communication Between Components:**
-- <TODO: Describe how the components communicate with each other 
-  (e.g., REST APIs, WebSockets, Pub/Sub, etc.).>
+
+- The frontend (React) communicates with the backend `leaderboard-service` (Node.js + Express) primarily via REST APIs over HTTP. For instance, it fetches leaderboard data to display to the user. The Vite proxy configuration indicates API requests are routed to the backend service.
 
 **Data Storage:**
-- <TODO: Describe how and where data is stored (e.g., relational databases, 
-  NoSQL, file storage, etc.).>
+
+- **PostgreSQL:** Serves as the primary relational database for storing structured data related to the leaderboard, including user scores and relevant details.
+- **Redis:** Utilized as an in-memory data store for caching purposes, specifically to speed up the retrieval of leaderboard information.
 
 # Architecture Diagram
 
 ```mermaid
-%% TODO:
-%% Use mermaid syntax to create an architectural diagram of the system
-%% you worked on. You can easily and interactively build a diagram
-%% by using the online tool available at https://mermaid.live. You can
-%% find additional information at https://mermaid.js.org. 
-
-%% Here is an example diagram:
 graph LR;
-    A["Frontend (React + Canvas)"] -->|"HTTP Requests (REST API)"| B["Backend (Node.js Express)"];
-    B -->|CRUD Operations| C[MongoDB Database];
-    B -->|User Authentication| D["Auth Service (JWT)"];
-    A -->|Real-time Collaboration| E["Collaborative Painting Service (WebSocket + Redis)"];
-    B -->|Containerized in| F[Docker Compose];
-    C -->|Artwork Storage| G["Image Storage (AWS S3)"];
-    A -->|Fetch Paintings| G;
-    D -->|JWT Tokens for Secure Access| A;
-    F -->|Containers for Frontend, Backend, Auth, and Real-Time| A;
-    F -->|Containers for Database and Image Storage| C;
-    F -->|Containers for Collaborative Service| E;
+    User[User] --> FrontendClient["Frontend (React UI)"];
+    FrontendClient -->|REST API Calls (HTTP)| BackendLeaderboard["Backend Leaderboard Service (Node.js + Express)"];
+    BackendLeaderboard -->|SQL Operations (TypeORM)| Database["Database (PostgreSQL)"];
+    BackendLeaderboard -->|Cache Operations| CacheStore["Cache (Redis)"];
+
+    subgraph "Containerized Environment (Docker)"
+        direction LR
+        FrontendClient
+        BackendLeaderboard
+        Database
+        CacheStore
+    end
 ```
 
 ---
@@ -78,15 +81,15 @@ graph LR;
 
 // Example:
 function fetchData() {
-    // Fetch data from backend API
-    fetch('http://localhost:3000/data')
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error));
+	// Fetch data from backend API
+	fetch("http://localhost:3000/data")
+		.then((response) => response.json())
+		.then((data) => console.log(data))
+		.catch((error) => console.error("Error:", error));
 }
 ```
 
-- **Description:** 
+- **Description:**
   <TODO: Provide a brief description of the front-end code and its functionality.>
 
 ## Microservice Code
@@ -96,18 +99,18 @@ function fetchData() {
 // Ensure that the code is properly formatted and includes comments to explain key sections
 
 // Example:
-import express from 'express';
+import express from "express";
 
 const app = express();
 
 // API endpoint to get all items
-app.get('/items', (req, res) => {
-    // Fetch and return items from database
-    res.json(items);
+app.get("/items", (req, res) => {
+	// Fetch and return items from database
+	res.json(items);
 });
 
 app.listen(3000, () => {
-    console.log('Server running on port 3000');
+	console.log("Server running on port 3000");
 });
 ```
 
@@ -154,7 +157,7 @@ CMD ["npm", "start"]
 # Ensure that it is correctly formatted and includes comments to explain key sections
 
 # Example:
-version: '3.8'
+version: "3.8"
 
 services:
   frontend:
@@ -177,7 +180,7 @@ services:
 ```
 
 - **Description:**
-  <TODO: Provide a brief description of the `docker-compose.yml` file and how 
+  <TODO: Provide a brief description of the `docker-compose.yml` file and how
   the services are set up.>
 
 ---
@@ -185,11 +188,13 @@ services:
 # Reflection
 
 **What I Learned:**
-- <TODO: Reflect on the key learnings you gained during the project and class. 
+
+- <TODO: Reflect on the key learnings you gained during the project and class.
   What concepts were most challenging? What skills did you improve on? How did
   the project help you understand scalable web systems better?>
 
 ---
 
 **Additional Notes (Optional):**
+
 - <TODO: Any other thoughts or reflections you would like to include.>
