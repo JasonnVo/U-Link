@@ -5,11 +5,11 @@ import "./main.css";
 // component imports
 import HeaderContainer from "./Components/HeaderContainer";
 import NavBar from "./Components/NavBar";
-import Map from "./Components/Map";
-import Login from "./Components/Login";
-import Profile from "./Components/Profile";
+import MapPage from "./pages/MapPage";
+import LoginPage from "./pages/LoginPage";
+import ProfilePage from "./pages/ProfilePage";
+import InfoPage from "./pages/InfoPage";
 import LeaderboardPage from "./pages/LeaderboardPage";
-import BusRoutesList from "./Components/BusRoutesList";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
@@ -28,10 +28,10 @@ createRoot(document.getElementById("root")!).render(
 					<NavBar />
 					<Routes>
 						<Route path="/" element={<HeaderContainer />} />
-						<Route path="/map" element={<Map />} />
-						<Route path="/login" element={<Login />} />
-						<Route path="/profile" element={<Profile />} />
-						<Route path="/info" element={<BusRoutesList />} />
+						<Route path="/map" element={<MapPage />} />
+						<Route path="/login" element={<LoginPage />} />
+						<Route path="/profile" element={<ProfilePage />} />
+						<Route path="/info" element={<InfoPage />} />
 						<Route path="/leaderboard" element={<LeaderboardPage />} />
 					</Routes>
 				</div>

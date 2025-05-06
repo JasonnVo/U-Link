@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from "react";
+
 function Profile() {
     return (
         <div className="my-20 flex justify-center items-center">

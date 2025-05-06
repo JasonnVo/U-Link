@@ -1,4 +1,4 @@
-
+import React, { useState, useEffect } from "react";
 const Map = () => {
   return (
     <div className="flex flex-col ustify-center items-center"> 

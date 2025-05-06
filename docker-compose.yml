@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: ulink
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: ulinkdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    ports: ["6379:6379"]
+
+  leaderboard:
+    build:
+      context: ./backend/leaderboard-service
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./backend/leaderboard-service/.env
+    depends_on:
+      - postgres
+      - redis
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    command: npm run dev
+
+  nginx:
+    image: nginx:stable-alpine
+    ports: ["80:80"]
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - leaderboard
+
+volumes:
+  pgdata:
