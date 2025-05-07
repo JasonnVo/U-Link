@@ -41,20 +41,20 @@
 
 **Primary Architecture Components:**
 
-- **Frontend (React):** Provides the user interface for the application, including displaying the leaderboard. It communicates with the backend to fetch necessary data.
-- **Backend (Node.js + Express):** Currently, this consists of a `leaderboard-service` microservice. It handles API requests related to the leaderboard, processes data, and interacts with the database and cache.
-- **Database (PostgreSQL):** Stores persistent data for the leaderboard, such as student information, ride counts, and points. TypeORM is used as the Object-Relational Mapper.
-- **Caching (Redis):** Employed by the `leaderboard-service` to cache frequently accessed leaderboard data, enhancing response times and reducing database load.
-- **Containerization (Docker):** Both the frontend and the `leaderboard-service` are containerized using Docker, facilitating consistent deployment environments and scalability.
+- **Frontend (React):** Provides the user interface for the application, including the leaderboard. It communicates with the backend to fetch necessary data.
+- **Backend (Node.js + Express):** Currently, this is just the `leaderboard-service` microservice. It handles API requests related to the leaderboard, processes data, and interacts with the database and cache.
+- **Database (PostgreSQL):** This is how the longe-term data for the leaderboard is stored, such as student information, ride counts, and points. TypeORM is used as the Object-Relational Mapper.
+- **Caching (Redis):** Through the `leaderboard-service` to cache frequently accessed leaderboard data, speeding up response times and reducing database load.
+- **Containerization (Docker):** Both the frontend and the `leaderboard-service` are containerized using Docker, which gives the product consistent deployment environments and scalability.
 
 **Communication Between Components:**
 
-- The frontend (React) communicates with the backend `leaderboard-service` (Node.js + Express) primarily via REST APIs over HTTP. For instance, it fetches leaderboard data to display to the user. The Vite proxy configuration indicates API requests are routed to the backend service.
+- The frontend (React) communicates with the backend `leaderboard-service` (Node.js + Express) through REST APIs over HTTP. Example: it fetches leaderboard data to display to the user. The Vite proxy configuration indicates API requests are routed to the backend service (Struggled with this part).
 
 **Data Storage:**
 
 - **PostgreSQL:** Serves as the primary relational database for storing structured data related to the leaderboard, including user scores and relevant details.
-- **Redis:** Utilized as an in-memory data store for caching purposes, specifically to speed up the retrieval of leaderboard information.
+- **Redis:** Used as an in-memory data store for caching purposes, to speed up the retrieval of leaderboard information.
 
 # Architecture Diagram
 
@@ -534,7 +534,7 @@ volumes:
   - Leaderboard service built from Node.js backend code
   - Frontend service running a Vite React development server
   - Nginx service that routes incoming HTTP traffic to the appropriate backend services based on URL paths
-  The file defines services for the frontend, backend, Redis, and PostgreSQL. It sets up the backend service to depend on Redis and PostgreSQL and makes sure that the components can communicate between each other on their respective ports with the use of the `depends_on` field.
+    The file defines services for the frontend, backend, Redis, and PostgreSQL. It sets up the backend service to depend on Redis and PostgreSQL and makes sure that the components can communicate between each other on their respective ports with the use of the `depends_on` field.
 
 ---
 
