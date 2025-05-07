@@ -13,7 +13,7 @@ COPY . .
 # Build the production React app
 RUN npm run build
 
-# Install 'serve' globally to serve the static build
+# Install serve globally to serve the static build
 RUN npm install -g serve
 
 # Expose frontend port
