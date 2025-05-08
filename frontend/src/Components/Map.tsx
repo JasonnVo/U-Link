@@ -15,6 +15,7 @@ const center = {
   lng: -71.0589,
 };
 
+// Bus interface object 
 interface BusFromDB {
   id: string;
   latitude: number;
@@ -30,6 +31,7 @@ const Map = () => {
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   });
 
+  // use effect that fetches bus data from the backend server every 10 secs 
   useEffect(() => {
     const updateAndFetchBuses = async () => {
       try {
@@ -39,7 +41,7 @@ const Map = () => {
         // fetch buses from backend
         const response = await fetch('http://localhost:4000/vehicles');
         const data = await response.json();
-        console.log('Fetched buses:', data); // test is data is coming 
+        console.log('Fetched buses:', data); // test data is coming 
         setBuses([...data]);
       } catch (error) {
         console.error("Error fetching bus data:", error);
@@ -47,7 +49,7 @@ const Map = () => {
     };
 
     updateAndFetchBuses();
-    const interval = setInterval(updateAndFetchBuses, 10000);
+    const interval = setInterval(updateAndFetchBuses, 10000); // 10 second interval
 
     return () => clearInterval(interval);
   }, []);
@@ -67,17 +69,20 @@ const Map = () => {
             .filter((bus) => bus.latitude !== null && bus.longitude !== null)
             .map((bus) => (
               <Marker
-                key={`${bus.id}-${bus.latitude}-${bus.longitude}`}
+                key={bus.id}
+                // marker position 
                 position={{
                   lat: bus.latitude,    
                   lng: bus.longitude,
                 }}
+                // marker label 
                 label={{
                   text: `${bus.route_id ?? "?"}`,
                   color: "#90ee90",
                   fontSize: "10px",
                   fontWeight: "bold",
                 }}
+                // marker icon and size 
                 icon={{
                   url: "/red-bus.png",
                   scaledSize: new window.google.maps.Size(30, 30),

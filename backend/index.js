@@ -29,10 +29,12 @@ await pool.query(`
 // post endpoint, fetches data from mbta api and stores it inside postgres database 
 app.post('/update-vehicles', async (req, res) => {
   try {
+    // fetch data from mbta api with API key from the env file 
     const mbtaResponse = await fetch(`https://api-v3.mbta.com/vehicles?filter[route_type]=3&api_key=${process.env.MBTA_API_KEY}`);
     const data = await mbtaResponse.json();
-    console.log('MBTA API full response:', JSON.stringify(data, null, 2));
+    console.log('MBTA API full response:', JSON.stringify(data, null, 2)); // log API response to make sure it updates
 
+    // SQL query to insert data into postgres database
     const query = `
       INSERT INTO vehicles (id, latitude, longitude, label, route_id, updated_at)
       VALUES ($1, $2, $3, $4, $5, NOW())
