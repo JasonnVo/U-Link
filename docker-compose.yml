@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  login-service:
+    build:
+      context: ./Login-service         
+    container_name: login-service
+    ports:
+      - "8080:8080"
+    volumes:
+      - login-data:/usr/src/app/data
+    environment:
+      NODE_ENV: production
+    restart: always
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - login-service
+volumes:
+  login-data:
