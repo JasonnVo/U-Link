@@ -29,6 +29,29 @@ services:
       - "3000:3000"
     depends_on:
       - backend
+      - routes-service
+
+  routes-mongo:
+    image: mongo:6.0
+    container_name: routes-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - routes-mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+
+  routes-service:
+    build: ./backend/routesService
+    container_name: routes-service
+    ports:
+      - "3005:3005"
+    env_file:
+      - .env
+    depends_on:
+      - routes-mongo
 
 volumes:
   pgdata:
+  routes-mongo-data:

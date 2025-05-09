@@ -1,52 +1,90 @@
-import { useParams } from "react-router-dom";
-import { SetStateAction, useState } from "react";
-
-// Mock data for now
-const stops = [
-  {
-    name: "Forest Hills",
-    address: "Washington St and Hyde Park Ave, Jamaica Plain, MA 02130",
-  },
-  { name: "3867 Washington St opp Tollgate Way", address: null },
-  { name: "Washington St @ Lochdale Rd", address: null },
-  { name: "Washington St @ Archdale Rd", address: null },
-  { name: "Washington St @ Mosgrove Ave", address: null },
-];
-const name =
-  "Mattapan Station - Forest Hills Station via Cummins Highway and Roslindale Square";
-const status = "Active";
-const mockAvgRating = 3.5;
-const mockNumRatings = 10;
-const mockComments: {user: string, comment: string}[] = [
-  {user: "Bob21", comment: "Clean buses, friendly drivers"},
-  {user: "Lisa_G17", comment: "Has been late multiple times this week"},
-  {user: "BusLuvr<3", comment: "No issues!"},
-];
+import { useLocation, useParams } from "react-router-dom";
+import { SetStateAction, useState, useEffect } from "react";
 
 export default function RouteInfo() {
-  const [comments, setComments] = useState(mockComments);
-  const [avgRating, setAvgRating] = useState(mockAvgRating);
-  const [numRatings, setNumRatings] = useState(mockNumRatings);
+  const [comments, setComments] = useState([]);
+  const [avgRating, setAvgRating] = useState(0);
+  const [stops, setStops] = useState([]);
   const [curComment, setCurComment] = useState("");
-  const { id } = useParams(); // Route ID
+  const { id } = useParams();
+  const { state: routeFromNav } = useLocation();
+  const [route, setRoute] = useState(routeFromNav);
+
+  type Stop = {
+    name: string,
+    address: string
+  };
+
+  type Comment = {
+    user: string,
+    comment: string
+  };
+
+  useEffect(() => {
+    // If no route passed via state, try to load from sessionStorage
+    if (!routeFromNav) {
+      const storedRoute = sessionStorage.getItem(`route_${id}`);
+      if (storedRoute) {
+        setRoute(JSON.parse(storedRoute));
+      }
+    }
+  }, [id, routeFromNav]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3005/routeInfo/${id}`);
+        const json = await response.json();
+        setComments(json.comments.toReversed());
+        if (json.ratings.length > 0) {
+          setAvgRating(+(json.ratings.reduce((a: number, b: number) => a + b) / json.ratings.length).toFixed(1));
+        }
+        setStops(json.stops);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
   const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
     setCurComment(e.target.value);
   };
 
-  function submitComment(e: { preventDefault: () => void }) {
+  async function submitComment(e: { preventDefault: () => void }) {
     e.preventDefault();
     if (curComment === "") return;
-    const mockUser = "MockUser"; // Temporary
-    setComments((current) => [{user: mockUser, comment: String(curComment)}].concat(current));
+    const mockUser = "You"; // Temporary
+  
+    try {
+      const res = await fetch(`http://localhost:3005/comment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: id, user: mockUser, comment: String(curComment) }),
+      });
+      if (!res.ok) throw new Error(`Status ${res.status}`);
+      const newComments = await res.json();
+      setComments(newComments.toReversed());
+    } catch (error) {
+      console.error("Error submitting comment:", error);
+    }
     setCurComment("");
   }
 
-  function handleRatingSubmit(rating: number) {
-    setAvgRating(
-      (cur) => (cur * numRatings / (numRatings + 1)) + (rating / (numRatings + 1))
-    );
-    setNumRatings((cur) => cur + 1);
+  async function handleRatingSubmit(rating: number) {
+    try {
+      const res = await fetch(`http://localhost:3005/rating`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: id, rating: rating }),
+      });
+      if (!res.ok) throw new Error(`Status ${res.status}`);
+      const newRatings = await res.json();
+      setAvgRating(+(newRatings.reduce((a: number, b: number) => a + b) / newRatings.length).toFixed(1));
+    } catch (error) {
+      console.error("Error submitting rating:", error);
+    }
   }
 
   return (
@@ -54,8 +92,14 @@ export default function RouteInfo() {
       {/* Top Section: ID, Name, Status */}
       <div className="text-center mb-4">
         <h1 className="text-3xl font-bold">{`Route ${id}`}</h1>
-        <h2 className="text-2xl">{name}</h2>
-        <h4 className="text-lg text-green-500">{`Status: ${status}`}</h4>
+        <h2 className="text-2xl">{route[1].name}</h2>
+        <h4
+          className={`text-lg ${
+            route[1].status === "Normal"
+              ? "text-green-500"
+              : "text-yellow-500"
+          }`}
+        >{`Status: ${route[1].status}`}</h4>
       </div>
 
       {/* Rating Section */}
@@ -73,7 +117,9 @@ export default function RouteInfo() {
             className="border rounded px-2 py-1 bg-white/40 border-gray-300 text-white"
             onChange={(e) => handleRatingSubmit(Number(e.target.value))}
           >
-            <option value="" disabled selected>Rate</option>
+            <option value="" disabled selected>
+              Rate
+            </option>
             {[1, 2, 3, 4, 5].map((num) => (
               <option key={num} value={num} className="bg-gray-500">
                 {num}
@@ -89,7 +135,7 @@ export default function RouteInfo() {
         <div>
           <h2 className="text-xl font-semibold mb-2">Stops</h2>
           <ol className="space-y-2 bg-white/15 rounded-lg p-2 overflow-y-auto max-h-60">
-            {stops.map((stop, index) => (
+            {stops.map((stop: Stop, index) => (
               <li key={index} className="border-b pb-2 border-white/10">
                 <p className="font-medium">{stop.name}</p>
                 {stop.address && (
@@ -104,7 +150,7 @@ export default function RouteInfo() {
         <div>
           <h2 className="text-xl font-semibold mb-2">Comments</h2>
           <ul className="space-y-2 bg-white/15 rounded-lg p-2 overflow-y-auto max-h-60">
-            {comments.map((comment, index) => (
+            {comments.map((comment: Comment, index) => (
               <li key={index} className="border-b pb-2 border-white/10">
                 <p className="text-sm text-white/80">{comment.user}</p>
                 <p className="w-full break-words">{comment.comment}</p>
