@@ -4,11 +4,11 @@ FROM node:18
 WORKDIR /app
 
 # Copy package files and install dependencies
-COPY package*.json ./
+COPY frontend/package*.json ./
 RUN npm install
 
 # Copy rest of frontend code
-COPY . .
+COPY frontend/. ./
 
 # Build the production React app
 RUN npm run build
