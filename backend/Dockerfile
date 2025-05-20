@@ -4,11 +4,11 @@ FROM node:18
 WORKDIR /app
 
 # Copy package files and install
-COPY package*.json ./
+COPY backend/package*.json ./
 RUN npm install
 
 # Copy rest of backend code
-COPY . .
+COPY backend/ ./
 
 # Expose backend port
 EXPOSE 4000
